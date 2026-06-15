@@ -2,7 +2,7 @@
 Needs to read data off the raspberry pi and then disply it to the external temp/humidity display.
 """
 
-import datetime
+from astropy.time import Time
 
 import board
 from adafruit_bme280 import basic as adafruit_bme280
@@ -20,7 +20,6 @@ def get_weather_data():
             "humidity": None
         },
         "time": {
-            "Date": datetime.date,
-            "Time": datetime.time
+            "Time Stamp": Time.now()
         }
     }
