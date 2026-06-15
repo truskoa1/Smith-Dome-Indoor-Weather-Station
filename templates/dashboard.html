@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Indoor Weather Station</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <main class="dashboard">
+       <section class="split-display">
+        <div class="panel">
+            <h2>Inside</h2>
+            <p class="temperature">
+                <span id="inside-temperature">--</span>°F
+            </p>
+            <p class="humidity">
+                Humidity: <span id="inside-humidity">--</span>%
+            </p>
+        </div>
+
+        <div class="panel">
+            <h2>Outside</h2>
+            <p class="temperature">
+                <span id="outside_temperature">--</span>°F
+            </p>
+
+            <p class="humidity">
+                Humidity: <span id="outside_humidity">--</span>%
+            </p>
+        </div>
+
+       </section>
+    </main>
+</body>
+</html>
