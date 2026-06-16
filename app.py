@@ -1,11 +1,14 @@
 from flask import Flask, render_template, jsonify
+
 from sensor_reader import get_weather_data
+
 
 app = Flask(__name__)
 
 @app.route("/")
 def dashboard():
-    return render_template("dashboard.html")
+    data = get_weather_data()
+    return render_template("dashboard.html", data=data)
 
 @app.route("/api/weather")
 def weather_api():

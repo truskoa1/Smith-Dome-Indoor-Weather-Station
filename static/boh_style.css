@@ -1,0 +1,161 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #000000;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.boh-dashboard {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 16px;
+}
+
+.camera-section,
+.data-section {
+    border: 2px solid #ffffff;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.camera-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.camera-section h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.camera-box {
+    flex: 1;
+    border: 2px dashed #ffffff;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+
+.audio-box {
+    border: 1px solid #ffffff;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.audio-box p {
+    margin: 0 0 8px 0;
+    font-size: 1.2rem;
+}
+
+audio {
+    width: 100%;
+}
+
+.data-section {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 16px;
+    min-height: 0;
+}
+
+.current-conditions {
+    border: 1px solid #ffffff;
+    border-radius: 12px;
+    padding: 12px
+}
+
+.current-conditions h2,
+.log-section h2 {
+    margin: 0 0 12px 0;
+    font-size: 1.6rem;
+}
+
+.condition-panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.condition-panel {
+    border: 1px solid #ffffff;
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+}
+
+.condition-panel h3 {
+    margin: 0 0 12px 0;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
+.temperature {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0 0 12px 0;
+    white-space: nowrap;
+}
+
+.humidity {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.log-section {
+    border: 1px solid #ffffff;
+    border-radius: 12px;
+    padding: 12px;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.log-header a {
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.log-table-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+th,
+td {
+    border-bottom: 1px solid #444444;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    background: #000000;
+    z-index: 1;
+}
