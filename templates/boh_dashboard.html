@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Weather Dashboard</title>
+
+        <link rel="stylesheet" href=""{{ url_for('static', filename='boh_style.css') }}>
+    </head>
+
+    <body>
+        <main class="boh-dashboard">
+            
+            <section class="camera-section">
+                <h1>Weather Dashboard</h1>
+
+                <div class="camera-box">
+                    <p>Camera feed placeholder</p>
+                </div>
+
+                <div class="audio-box">
+                    <p>Microphone/audio placeholder</p>
+
+                    <audio controls>
+                        Not supported.
+                    </audio>
+                </div>
+            </section>
+            
+            <section class="data-section">
+                <section class="current-conditions">
+                    <h2>Current Conditions</h2>
+
+                    <div class="condition-panels">
+                        <div class="condition-panel">
+                            <h3>Inside</h3>
+
+                            <p class="temperature">
+                                <span id="inside-temperature-f">
+                                    {{ data.inside.temperature_f }}</span>°F /
+                                <span id="inside-temperature-c">
+                                    {{ data.inside.temperature_c }}</span>°C 
+                            </p>
+
+                            <p class="humidity">
+                                Humidity:
+                                <span id="inside-humidity">
+                                    {{ data.inside.humidity }}
+                                </span>%
+                            </p>
+                        </div>
+
+                        <div class="condition-panel">
+                            <h3>Outside</h3>
+
+                            <p class="temperature">
+                                <span id="outside-temperature-f">
+                                    {{ data.outside.temperature_f }}
+                                </span>°F /
+                                <span id="outside-temperature-c">
+                                    {{ data.outside.temperature_c }}
+                                </span>°C
+                            </p>
+
+                            <p class="humidity">
+                                Humidity:
+                                <span id="outside-humidity">
+                                    {{ data.outside.humidity }}
+                                </span>%
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="log-section">
+                    <div class="log-header">
+                        <h2>Weather Log</h2>
+
+                        <a href="/download/weather-log.csv">
+                            Download CSV
+                        </a>
+                    </div>
+
+                    <div class="log-table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Timestamp UTC</th>
+                                    <th>Inside Temp</th>
+                                    <th>Inside Humidity</th>
+                                    <th>Outside Temp</th>
+                                    <th>Outside Humidity</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="weather-log-body">
+                                {% for row in log_rows %}
+                                <tr>
+                                    <td>{{ row.timestamp_utc }}</td>
+                                    <td>{{ row.inside_temperature_f }}°F / {{ row.inside_temperature_c }}°C</td>
+                                    <td>{{ row.inside_humidity }}%</td>
+                                    <td>{{ row.outside_temperature_f }}°F / {{ row.outside_temperature_c }}°C</td>
+                                    <td>{{ row.outside_humidity }}%</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+        </main>
+
+        <script src="{{ url_for('static', filename='boh_dashboard.js') }}"></script>
+    </body>
+</html>

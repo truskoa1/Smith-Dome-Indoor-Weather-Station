@@ -15,19 +15,29 @@
         <div class="panel">
             <h2>Inside</h2>
             <p class="temperature">
-                <span id="inside-temperature">--</span>°F
+                <span id="inside-temperature-f">
+                {{ data.inside.temperature_f }}
+                </span>°F /
+                <span id="inside-temperature-c">
+                    {{ data.inside.temperature_c }}</span>°C
             </p>
             <p class="humidity">
-                Humidity: <span id="inside-humidity">--</span>%
+                Humidity: 
+                <span id="inside-humidity">{{ data.inside.humidity }}
+                </span>%
             </p>
         </div>
 
         <div class="panel">
             <h2>Outside</h2>
             <p class="temperature">
-                <span id="outside_temperature">--</span>°F
+                <span id="outside_temperature-f">
+                    {{ data.outside.temperature_f }}
+                </span>°F /
+                <span id="outside_temperature-c">
+                    {{ data.outside.temperature_c }}
+                </span>°C
             </p>
-
             <p class="humidity">
                 Humidity: <span id="outside_humidity">--</span>%
             </p>
@@ -35,5 +45,7 @@
 
        </section>
     </main>
+
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
 </body>
 </html>
