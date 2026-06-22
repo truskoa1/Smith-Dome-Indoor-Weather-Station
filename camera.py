@@ -18,7 +18,7 @@ camera.start()
 time.sleep(2)
 
 # Capture Image
-parent_folder = os.chdir(f'/home/surp')
+parent_folder = f'/home/surp'
 image_path = "images"
 save_path = os.path.join(parent_folder, image_path)
 
