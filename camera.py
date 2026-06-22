@@ -20,12 +20,12 @@ time.sleep(2)
 # Capture Image
 # parent_folder = str(f'/home/surp')
 # image_path = str('images')
-image_path = '/home/surp/images'
+image_path = '/home/surp/test_image.jpg'
 
-if os.path.exists(image_path):
-    print('yay!')
-else:
-    os.mkdir(image_path)
+# if os.path.exists(image_path):
+#     print('yay!')
+# else:
+#     os.mkdir(image_path)
 
 
 camera.capture_file(image_path)
