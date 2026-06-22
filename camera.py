@@ -22,7 +22,7 @@ time.sleep(2)
 # image_path = str('images')
 image_path = '/home/surp/images'
 
-if image_path.exists():
+if os.path.exists(image_path):
     print('yay!')
 else:
     os.mkdir(image_path)
