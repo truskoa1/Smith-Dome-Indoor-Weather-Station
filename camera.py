@@ -18,8 +18,8 @@ camera.start()
 time.sleep(2)
 
 # Capture Image
-parent_folder = f'/home/surp'
-image_path = "images"
+parent_folder = str(f'/home/surp')
+image_path = str('images')
 save_path = os.path.join(parent_folder, image_path)
 
 if save_path.exists():
