@@ -5,6 +5,7 @@ Needs to:
 - Update to the website with a couple of frames per second for live streaming
 """
 # example code to take a picture
+import os
 from picamera2 import Picamera2
 import time
 
@@ -17,5 +18,14 @@ camera.start()
 time.sleep(2)
 
 # Capture Image
-image_path = “whatever path we want”
+parent_folder = os.chdir(f'/home/surp')
+image_path = "images"
+save_path = os.path.join(parent_folder, image_path)
+
+if save_path.exists():
+    print('yay!')
+else:
+    os.mkdir(save_path)
+
+
 camera.capture_file(image_path)
