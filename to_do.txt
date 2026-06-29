@@ -1,0 +1,38 @@
+*** Basic To-Do to finish up the weather station. ***
+
+Last update: 6.29.26
+Goal to finish weather station prior to last week of SURP.
+
+-Implement warning system: Detects certain weather conditions, changes 
+color of display, requiring user input (button) to return to base state. 
+Amber should be for a warning, red for a "close dome now" alert.
+-Implement menu on display. This will have a section for camera to turn the
+camera on. 
+-Get camera to a point of "live streaming"
+-Design and print ventilated protective case for AdaFruit BME280 sensor.
+-Finish back of house web design
+-Communicate with outer dome pi.
+-Mount display
+
+
+Plan for 6.29.2026:
+-Research how to get Pis to communicate.
+-Work on camera "live streaming"
+-Decide on our warning conditions and our danger conditions. If I had to 
+postulate what these would be, high humidity would be a warning, 100% humidity
+would indicate danger. I don't think the outer dome has a specific rain sensor,
+but if they did that would also be a danger condition. Temperature? I'm not 
+sure how hot our camera can run? I believe we've been setting it to -5 or -10C,
+so who knows. This would probably be a warning condition, as it might just
+indicate poor observation.
+
+
+Plan for 7.1.2026:
+-Add necessary parameters to FOH and BOH. Update necessary functions as well.
+I believe we only need to add pressure. 
+-Work on BOH web design and the formatting/how we will download the data.
+-Implement menu on FOH
+-Work on warning system
+-Research ventilated box designs. 
+-If these are simple, we can pull more from the master list. 
+
