@@ -8,24 +8,52 @@ the code to work with multiple networks.
 import io
 from picamera2 import Picamera2
 from flask import Flask, Response
+from libcamera import Transform
+import time
 
 app = Flask(__name__)
 
+# Initialize camera once
+camera = Picamera2()
+
+camera_config = camera.create_video_configuration(
+    main={"size": (640, 480)}
+)
+camera.configure(camera_config)
+camera.start()
+
+# Give camera time to warm up
+time.sleep(2)
+
+
 def generate_frames():
-    with Picamera2() as camera:
-        camera.resolution = (640, 480)
-        camera.framerate = 24
-        stream = io.BytesIO()
+    stream = io.BytesIO()
 
-        for _ in camera.capture_continuous(stream,'jpeg', use_video_port=True):
-            stream.seek(0)
-            yield b'--frame \r\nContent-Type: image/jpeg\r\n\r\n' + stream.read() + b'\r\n'
-            stream.seek(0)
-            stream.truncate()
+    while True:
+        # Capture JPEG directly into memory
+        stream.seek(0)
+        stream.truncate()
 
-@app.route('/video_feed')
+        camera.capture_file(stream, format="jpeg")
+
+        stream.seek(0)
+        frame = stream.read()
+
+        yield (
+            b'--frame\r\n'
+            b'Content-Type: image/jpeg\r\n\r\n' +
+            frame +
+            b'\r\n'
+        )
+
+
+@app.route("/video_feed")
 def video_feed():
-    return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(
+        generate_frames(),
+        mimetype="multipart/x-mixed-replace; boundary=frame"
+    )
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, threaded=True)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, threaded=True)
