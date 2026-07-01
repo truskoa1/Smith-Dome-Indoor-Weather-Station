@@ -34,9 +34,11 @@ def get_weather_data():
     if sensor_avail:
         inside_temp_c = bme280.temperature
         inside_humidity = bme280.humidity
+        inside_pressure = bme280.pressure
     else:
         inside_temp_c = 22.0
         inside_humidity = 40.0
+        inside_pressure = 1013.3 
 
     inside_temp_f = celsius_to_fahrenheit(inside_temp_c)
     current_time = Time.now()
@@ -45,20 +47,18 @@ def get_weather_data():
         "inside": {
             "temperature_c": round(inside_temp_c, 1),
             "temperature_f": round(inside_temp_f, 1),
+            "pressure_hpa": round(inside_pressure, 1),
             "humidity": round(inside_humidity, 1)
         },
         # need to communicate with other group to get measurements from outside weather station for both of these
         "outside": {
             "temperature_c": "--",  
             "temperature_f": "--",
+            "pressure_hpa": "--",
             "humidity": "--"
         },
         "time": {
-<<<<<<< HEAD
-            "Time Stamp": Time.now()
-=======
-            "time_UTC": current_time.isot,
-            "jd": current_time.jd
->>>>>>> 7a71dd5 (Created BOH weather dashboard)
+            "timestamp_utc": current_time.isot,
+            "julian_date": current_time.jd
         }
     }

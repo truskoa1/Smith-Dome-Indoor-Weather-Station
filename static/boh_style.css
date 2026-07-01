@@ -44,21 +44,18 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 2rem;
+    overflow: hidden;
+    background: #000000;
 }
 
-.audio-box {
-    border: 1px solid #ffffff;
-    border-radius: 12px;
-    padding: 12px;
-}
-
-.audio-box p {
-    margin: 0 0 8px 0;
-    font-size: 1.2rem;
-}
-
-audio {
+.camera-stream {
     width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.hidden {
+    display: none;
 }
 
 .data-section {
@@ -158,4 +155,11 @@ th {
     top: 0;
     background: #000000;
     z-index: 1;
+}
+
+.pressure {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 12px 0 0 0;
+    white-space: nowrap;
 }
