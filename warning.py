@@ -8,7 +8,7 @@ def warn(temp, humidity, rainfall):
     
     if humidity > high_humidity:
         humiditywarning = True
-    if rainfall = True:
+    if rainfall == True:
         rainfallwarning = True
     if humidity = 100:
         humidityDanger = True
