@@ -25,6 +25,48 @@ body {
     gap: 12px;
 }
 
+.menu-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 80px;
+    height: 80px;
+    font-size: 42px;
+    z-index: 1000;
+    cursor: pointer;
+    border: 2px solid #ffffff;
+    border-radius: 12px;
+    background: #111111;
+    color: #ffffff;
+}
+
+.side-menu {
+    position: fixed;
+    top: 115px;
+    right: 20px;
+    width: 280px;
+    background: #111111;
+    border: 2px solid #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    z-index: 999;
+}
+
+.menu-option {
+    width: 100%;
+    height: 75px;
+    font-size: 28px;
+    cursor: pointer;
+    border: 2px solid #ffffff;
+    border-radius: 12px;
+    background: #222222;
+    color: #ffffff;
+}
+
+.hidden {
+    display: none;
+}
+
 .panel {
     border: 2px solid #ffffff;
     border-radius: 16px;
@@ -51,4 +93,9 @@ body {
 .humidity {
     font-size: 2.2rem;
     margin: 0;
+}
+
+.pressure {
+    font-size: 2.2rem;
+    margin: 12px 0 0 0;
 }

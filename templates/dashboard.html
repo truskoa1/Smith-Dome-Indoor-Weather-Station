@@ -10,6 +10,10 @@
 </head>
 
 <body>
+    <button id="menu-button" class="menu-button">☰</button>
+    <div id="side-menu" class="side-menu hidden">
+    <button id="camera-button" class="menu-option">Loading...</button>
+</div>
     <main class="dashboard">
        <section class="split-display">
         <div class="panel">
@@ -22,24 +26,28 @@
                     {{ data.inside.temperature_c }}</span>°C
             </p>
             <p class="humidity">
-                Humidity: 
-                <span id="inside-humidity">{{ data.inside.humidity }}
-                </span>%
+               Humidity: <span id="outside-humidity">{{ data.outside.humidity }}</span>%
+            </p>
+            <p class="pressure">
+                Pressure: <span id="inside-pressure">{{ data.inside.pressure_hpa }}</span> hPa
             </p>
         </div>
 
         <div class="panel">
             <h2>Outside</h2>
             <p class="temperature">
-                <span id="outside_temperature-f">
+                <span id="outside-temperature-f">
                     {{ data.outside.temperature_f }}
                 </span>°F /
-                <span id="outside_temperature-c">
+                <span id="outside-temperature-c">
                     {{ data.outside.temperature_c }}
                 </span>°C
             </p>
             <p class="humidity">
                 Humidity: <span id="outside_humidity">--</span>%
+            </p>
+            <p class="pressure">
+                Pressure:<span id="outside-pressure">{{ data.outside.pressure_hpa }}</span> hPa
             </p>
         </div>
 

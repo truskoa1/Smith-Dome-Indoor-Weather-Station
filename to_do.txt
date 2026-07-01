@@ -24,8 +24,15 @@ would indicate danger. I don't think the outer dome has a specific rain sensor,
 but if they did that would also be a danger condition. Temperature? I'm not 
 sure how hot our camera can run? I believe we've been setting it to -5 or -10C,
 so who knows. This would probably be a warning condition, as it might just
-indicate poor observation.
+indicate poor observation. (complete)
 
+Accomplished 6.29.2026:
+-Live stream working!
+-Danger/caution conditions established, rudimentary warnings.py written
+-Decided on RasPi communication. We will utilize a MQTT protocol. We have 
+both our IP as well as the outside dome IP:
+	* Inside IP: 172.30.218.254
+	* Outside IP: 127.0.1.1 
 
 Plan for 7.1.2026:
 -Add necessary parameters to FOH and BOH. Update necessary functions as well.
@@ -35,4 +42,7 @@ I believe we only need to add pressure.
 -Work on warning system
 -Research ventilated box designs. 
 -If these are simple, we can pull more from the master list. 
+
+Plan for 7.6.2026 (Pi Session):
+-
 

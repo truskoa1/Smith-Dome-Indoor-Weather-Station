@@ -17,10 +17,12 @@ def initialize_log():
                 "inside_temperature_f",
                 "inside_temperature_c",
                 "inside_humidity",
+                "inside_pressure_hpa",
                 "outside_temperature_f",
                 "outside_temperature_c",
-                "outside_humidity"
-            ])
+                "outside_humidity",
+                "outside_pressure_hpa"
+                ])
 
 def log_weather_data():
     initialize_log()
@@ -32,14 +34,16 @@ def log_weather_data():
 
         writer.writerow([
             data["time"]["timestamp_utc"],
-            data["time"]["julian_date"], 
+            data["time"]["julian_date"],
             data["inside"]["temperature_f"],
             data["inside"]["temperature_c"],
             data["inside"]["humidity"],
+            data["inside"]["pressure_hpa"],
             data["outside"]["temperature_f"],
             data["outside"]["temperature_c"],
-            data["outside"]["humidity"]
-        ])
+            data["outside"]["humidity"],
+            data["outside"]["pressure_hpa"]
+            ])
 
 def read_recent_log(limit=25):
     initialize_log()

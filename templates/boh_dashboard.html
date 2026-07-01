@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>Weather Dashboard</title>
 
-        <link rel="stylesheet" href=""{{ url_for('static', filename='boh_style.css') }}>
+        <link rel="stylesheet" href="{{ url_for('static', filename='boh_style.css') }}">
     </head>
 
     <body>
@@ -12,18 +12,18 @@
             
             <section class="camera-section">
                 <h1>Weather Dashboard</h1>
+                <div id="camera-box" class="camera-box">
+                    <p id="camera-status-text">Camera stream is off.</p>
 
-                <div class="camera-box">
-                    <p>Camera feed placeholder</p>
+                    <img 
+                        id="camera-stream"
+                        class="camera-stream hidden"
+                        src="http://172.30.218.254:5000/video_feed"
+                        alt="Live camera stream"
+                        >
                 </div>
+            </div>
 
-                <div class="audio-box">
-                    <p>Microphone/audio placeholder</p>
-
-                    <audio controls>
-                        Not supported.
-                    </audio>
-                </div>
             </section>
             
             <section class="data-section">
@@ -47,6 +47,11 @@
                                     {{ data.inside.humidity }}
                                 </span>%
                             </p>
+
+                            <p class="pressure">
+                                Pressure:<span id="inside-pressure">{{ data.inside.pressure_hpa }}</span> hPa
+                            </p>
+
                         </div>
 
                         <div class="condition-panel">
@@ -66,6 +71,9 @@
                                 <span id="outside-humidity">
                                     {{ data.outside.humidity }}
                                 </span>%
+                            </p>
+                            <p class="pressure">
+                                Pressure:<span id="outside-pressure">{{ data.outside.pressure_hpa }}</span> hPa
                             </p>
                         </div>
                     </div>
@@ -87,8 +95,10 @@
                                     <th>Timestamp UTC</th>
                                     <th>Inside Temp</th>
                                     <th>Inside Humidity</th>
+                                    <th>Inside Pressure</th>
                                     <th>Outside Temp</th>
                                     <th>Outside Humidity</th>
+                                    <th>Outside Pressure</th>
                                 </tr>
                             </thead>
 
@@ -98,8 +108,10 @@
                                     <td>{{ row.timestamp_utc }}</td>
                                     <td>{{ row.inside_temperature_f }}°F / {{ row.inside_temperature_c }}°C</td>
                                     <td>{{ row.inside_humidity }}%</td>
+                                    <td>{{ row.inside_pressure_hpa }} hPa</td>
                                     <td>{{ row.outside_temperature_f }}°F / {{ row.outside_temperature_c }}°C</td>
                                     <td>{{ row.outside_humidity }}%</td>
+                                    <td>{{ row.outside_pressure_hpa }} hPa</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -108,7 +120,6 @@
                 </section>
             </section>
         </main>
-
         <script src="{{ url_for('static', filename='boh_dashboard.js') }}"></script>
     </body>
 </html>
