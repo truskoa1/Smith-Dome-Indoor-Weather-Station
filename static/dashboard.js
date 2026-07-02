@@ -91,3 +91,89 @@ cameraButton.addEventListener("click", async () => {
 
 updateCameraButton();
 setInterval(updateCameraButton, 5000)
+
+const alertBox = document.getElementById("alert-box");
+const alertTitle = document.getElementById("alert-title");
+const alertMessage = document.getElementById("alert-message");
+const snoozeAlertButton = document.getElementById("snooze-alert-button");
+
+async function updateAlerts() {
+    try {
+        const response = await fetch("/api/alerts");
+
+        if (!response.ok) {
+            throw new Error("Alert API request failed");
+        }
+
+        const alert = await response.json();
+
+        document.body.classList.remove(
+            "alert-unknown",
+            "alert-warning",
+            "alert-danger"
+        );
+
+        alertBox.classList.remove("unknown", "warning", "danger");
+
+        if (!alert.active || alert.snoozed) {
+            alertBox.classList.add("hidden");
+            return;
+        }
+
+        alertBox.classList.remove("hidden");
+
+        const messageText = alert.messages.join(" ");
+
+        if (alert.level === "unknown") {
+            document.body.classList.add("alert-unknown");
+            alertBox.classList.add("unknown");
+
+            alertTitle.textContent = "WEATHER DATA UNAVAILABLE";
+            alertMessage.textContent = messageText;
+
+            snoozeAlertButton.classList.add("hidden");
+        }
+
+        if (alert.level === "warning") {
+            document.body.classList.add("alert-warning");
+            alertBox.classList.add("warning");
+
+            alertTitle.textContent = "WARNING";
+            alertMessage.textContent = messageText;
+
+            snoozeAlertButton.classList.remove("hidden")
+        }
+
+        if (alert.level === "danger") {
+            document.body.classList.add("alert-danger");
+            alertBox.classList.add("danger");
+
+            alertTitle.textContent = "DANGER";
+            alertMessage.textContent = messageText + "Close dome immediately.";
+
+            snoozeAlertButton.classList.add("hidden")
+        }
+    } catch (error) {
+        console.error("Could not update alerts:", error);
+    }
+}
+
+snoozeAlertButton.addEventListener("click", async () => {
+    try {
+        const response = await fetch("api/alerts/snooze", {
+            method: "POST"
+        });
+
+        if (!response.ok) {
+            throw new Error("Snooze request failed");
+        }
+
+        await response.json();
+        await updateAlerts();
+    } catch (error) {
+        console.error("Could not snooze alert:", error);
+    }
+});
+
+updateAlerts();
+setInterval(updateAlerts, 5000);

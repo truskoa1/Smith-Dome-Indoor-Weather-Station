@@ -84,6 +84,88 @@ body {
     text-transform: uppercase;
 }
 
+body.alert-unknown {
+    background: #2f3a45;
+}
+
+body.alert-warning {
+    background: #8a5200;
+}
+
+body.alert-danger {
+    background: #7a0000;
+}
+
+body.alert-unknown .panel {
+    border-color: #8fb3d9;
+}
+
+body.alert-warning .panel {
+    border-color: #ffbf00;
+}
+
+body.alert-danger .panel {
+    border-color: #ff3333;
+}
+
+.alert-box {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 60vw;
+    min-height: 120px;
+
+    border: 4px solid #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+
+    background: #111111;
+    color: #ffffff;
+
+    z-index: 1200;
+    text-align: center;
+}
+
+.alert-box h1 {
+    margin: 0 0 12px 0;
+    font-size: 2.5 rem;
+}
+
+.alert-box p {
+    margin: 0 0 16px 0;
+    font-size: 1.5rem;
+}
+
+.alert-box.unknown {
+    background: #2f3a45;
+    border-color: #8fb3d9;
+}
+
+.alert-box.warning {
+    background: #8a5200;
+    border-color: #ffbf00;
+}
+
+.alert-box.danger {
+    background: #7a0000;
+    border-color: #ff3333;
+}
+
+.alert-button {
+    height: 60px;
+    min-width: 220px;
+    font-size: 1.5rem;
+
+    border: 2px solid #ffffff;
+    border-radius: 12px;
+
+    background: #222222;
+    color: #ffffff;
+
+    cursor: pointer;
+}
 .temperature {
     font-size: 4rem;
     font-weight: bold;
