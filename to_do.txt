@@ -20,8 +20,7 @@ Plan for 6.29.2026:
 -Work on camera "live streaming"
 -Decide on our warning conditions and our danger conditions. If I had to 
 postulate what these would be, high humidity would be a warning, 100% humidity
-would indicate danger. I don't think the outer dome has a specific rain sensor,
-but if they did that would also be a danger condition. Temperature? I'm not 
+would indicate danger. Temperature? I'm not 
 sure how hot our camera can run? I believe we've been setting it to -5 or -10C,
 so who knows. This would probably be a warning condition, as it might just
 indicate poor observation. (complete)
@@ -29,10 +28,10 @@ indicate poor observation. (complete)
 Accomplished 6.29.2026:
 -Live stream working!
 -Danger/caution conditions established, rudimentary warnings.py written
--Decided on RasPi communication. We will utilize a MQTT protocol. We have 
+-Decided on RasPi communication. We will utilize a MQTT protocol (maybe I lied -SS 7.2.26). We have 
 both our IP as well as the outside dome IP:
 	* Inside IP: 172.30.218.254
-	* Outside IP: 127.0.1.1 
+	* Outside IP: 
 
 Plan for 7.1.2026:
 -Add necessary parameters to FOH and BOH. Update necessary functions as well.
@@ -44,5 +43,13 @@ I believe we only need to add pressure.
 -If these are simple, we can pull more from the master list. 
 
 Plan for 7.6.2026 (Pi Session):
--
+-Discuss w/ Jackson the best way to get the pis talking. (Preferably) implement this.
+-Find out more concretely what is a danger condition and what is a caution condition. Update code accordingly.
+-Show Rick the chosen CAD model. See if it will work as is or if we need to make any adjustments.
+-Figure out how often we want weather data stored. Is a CSV download good? Once a time is chosen, this also needs to be updated in the code.
+-Begin documenting our code and project as a whole. This should outlast our time here.
+-This probably will not occur during the pi session, but we may want to implement a menu into the BOH design. It would probably have a camera toggle, an alarm log,
+and maybbbeee an about page. 
+-After this session we have two more, so this will probably primarily be final touches and mounting. Yay, software almost done!
+
 
