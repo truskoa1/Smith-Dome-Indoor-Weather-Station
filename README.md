@@ -5,7 +5,7 @@ Sensor_reader.py:
   If no such sensors exist, then it will return an error.
   The function celsius_to_fahrenheit does exactly that—convert a celcius value to fahrenheit.
   The function get_weather_data also does exactly that—returns data gathered.
-    If valid sensors were detected, then it sets four "goofy-ahh weather variables" (temp, hum, pres, and temp in F)
+    If valid sensors were detected, then it sets four variables (temp, hum, pres, and temp in F)
     to the values that those sensors output.
     If no valid sensors were detected, then it sets those variables to "--".
   Sensor_reader will return a few things:
