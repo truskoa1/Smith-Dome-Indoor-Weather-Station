@@ -51,9 +51,9 @@ def get_weather_data():
         inside_humidity = bme280.humidity
         inside_pressure = bme280.pressure
     else:
-        inside_temp_c = 22.0
-        inside_humidity = 40.0
-        inside_pressure = 1013.3 
+        inside_temp_c = None
+        inside_humidity = None
+        inside_pressure = None
 
     inside_temp_f = celsius_to_fahrenheit(inside_temp_c)
     current_time = Time.now()
