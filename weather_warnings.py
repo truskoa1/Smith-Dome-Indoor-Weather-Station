@@ -139,16 +139,25 @@ def warn(temp, humidity, rainfall=False):
     humiditywarning = False
     rainfalldanger = False
     humidityDanger = False
+    tempdanger = False
 
     messages = []
 
     if (
-        TEMP_THRESHOLD_F is not None
+        TEMP_THRESHOLD_F_CAUTION is not None
         and is_number(temp)
-        and temp > TEMP_THRESHOLD_F
+        and temp > TEMP_THRESHOLD_F_CAUTION
     ):
         tempwarning = True
         messages.append(f"Outside temperature is high: {temp}°F.")
+
+    if (
+        TEMP_THRESHOLD_F_DANGER is not None
+        and is_number(temp)
+        and temp > TEMP_THRESHOLD_F_DANGER
+    ):
+        tempdanger = True
+        messages.append(f"Outside temperature is dangerously high: {temp}°F.")
 
     if is_number(humidity) and humidity >= HIGH_HUMIDITY:
         humiditywarning = True
@@ -162,7 +171,7 @@ def warn(temp, humidity, rainfall=False):
         humidityDanger = True
         messages.append(f"Outside humidity is dangerously high: {humidity}%.")
 
-    danger = rainfalldanger or humidityDanger
+    danger = rainfalldanger or humidityDanger or tempdanger
     warning = humiditywarning or tempwarning
 
     if danger:
