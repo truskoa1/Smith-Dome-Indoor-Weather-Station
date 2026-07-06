@@ -126,7 +126,7 @@ def evaluate_warnings(weather_data):
             "snoozed": False,
             "can_snooze": False,
             "messages": [
-                "Outside weather data is unavailable. Cannot evaluate observatory safety."
+                "Outside weather data unavailable. Safety unknown."
             ],
 
             "tempwarning": False,
