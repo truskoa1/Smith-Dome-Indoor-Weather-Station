@@ -1,11 +1,15 @@
 """
 Reads weather data from our Pi and displays it to the external display
 
-6.15.2026 -
-    For development purposes, I have added code so default values display when
-    the I2C connection isn't possible. That way, on the RasPi the real values will display
-    and on a personal machine it will display defaults. 
-    -SS
+This file provides get_weather_data(), which returns a weather dictionary to the FOH dashboard, BOH dashboard, weather logger,
+and alert system.
+
+Behavior:
+    - Intended for use with the Adafruit BME280 weather sensor.
+    - If the BME280 is unavailable, placeholder values are utilized for development purposes.
+    - Outside weather data is given a string placeholder of "--" until Pi-to-Pi communication is established.
+
+Prior to being installed in the Smith Dome, the float placeholders for interior data will be changed to also be "--". 
 """
 
 from astropy.time import Time
@@ -31,6 +35,17 @@ def celsius_to_fahrenheit(temp_c):
     return (temp_c * 9/5) + 32
 
 def get_weather_data():
+    """
+    Return the current weather data used by the dashboards.
+
+    Returns:
+        dict:
+            Nested dictionary containing inside weather, outside weather, and timestamps.
+
+    Notes: 
+        - Until communication with the outside Pi is possible, placeholder strings are currently hardcoded into the return statement.
+          This will always result in an "unknown" alert state. 
+    """
     if sensor_avail:
         inside_temp_c = bme280.temperature
         inside_humidity = bme280.humidity

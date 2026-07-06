@@ -1,3 +1,10 @@
+"""
+Back of house Flask application.
+
+This serves the BOH dashboard on port 5002. The BOH dashboard is intended for monitoring from a laptop or desktop. This
+displays current weather data, a running log of 
+"""
+
 from flask import Flask, render_template, jsonify, send_file
 
 from sensor_reader import get_weather_data
