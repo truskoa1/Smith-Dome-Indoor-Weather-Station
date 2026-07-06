@@ -4,4 +4,5 @@ __pycache__/
 .DS_Store
 .vscode/
 weather_log.csv
+config_real.json
 
