@@ -32,13 +32,13 @@ def celsius_to_fahrenheit(temp_c):
 
 def get_weather_data():
     if sensor_avail:
-        # inside_temp_c = bme280.temperature
-        # inside_humidity = bme280.humidity
-        # inside_pressure = bme280.pressure
+        inside_temp_c = bme280.temperature
+        inside_humidity = bme280.humidity
+        inside_pressure = bme280.pressure
     else:
-        inside_temp_c = None
-        inside_humidity = None
-        inside_pressure = None
+        inside_temp_c = "--"
+        inside_humidity = "--"
+        inside_pressure = "--"
 
     inside_temp_f = celsius_to_fahrenheit(inside_temp_c)
     current_time = Time.now()
