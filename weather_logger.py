@@ -1,3 +1,12 @@
+"""
+Weather logging utilities.
+
+This file appends readings from sensor_reader.get_weather_data() to a CSV file. The BOH dashboard uses this log to display recent
+readings and provide a CSV file download. 
+
+If the CSV file does not already exist, this script creates one automatically. 
+"""
+
 import csv
 from pathlib import Path
 
@@ -7,6 +16,11 @@ base_dir = Path(__file__).resolve().parent
 log_file = base_dir / "weather_log.csv"
 
 def initialize_log():
+    """
+    Create the weather CSV file if it does not already exist.
+
+    The header row defines the expected order for all future rows.
+    """
     if not log_file.exists():
         with open(log_file, mode="w", newline="") as file:
             writer = csv.writer(file)
@@ -25,6 +39,9 @@ def initialize_log():
                 ])
 
 def log_weather_data():
+    """
+    Append one reading to the weather log. 
+    """
     initialize_log()
 
     data = get_weather_data()
@@ -46,6 +63,17 @@ def log_weather_data():
             ])
 
 def read_recent_log(limit=25):
+    """
+    Return the most recent rows from the weather log.
+
+    Args:
+        limit (int):
+            Maximum number of rows to return.
+
+    Returns: 
+        list[dict]:
+            Recent log rows, usually displayed by the BOH dashboard. 
+    """
     initialize_log()
 
     with open(log_file, mode="r", newline="") as file:

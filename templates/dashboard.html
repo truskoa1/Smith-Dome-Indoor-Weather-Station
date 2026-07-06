@@ -2,18 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <!-- Makes the page scale correctly on our touchscreen. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Indoor Weather Station</title>
 
+    <!-- Loads the FOH dashboard styling from the Flask static folder-->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
+    <!-- Menu button and side button
+         dashboard.js shows/hides this menu by toggling the hidden class based on input. -->
     <button id="menu-button" class="menu-button">☰</button>
     <div id="side-menu" class="side-menu hidden">
     <button id="camera-button" class="menu-option">Loading...</button>
 </div>
+
+<!-- Alert banner. This is hidden by default. dashboard.js toggles the hidden class based on current alert
+     level. -->
 <div id="alert-box" class="alert-box hidden">
     <h1 id="alert-title">Alert</h1>
     
@@ -23,6 +31,7 @@
         Snooze Warning
     </button>
 </div>
+    <!-- Main weather display. Spans are utilized so values can be updated without needing to reload the page. -->
     <main class="dashboard">
        <section class="split-display">
         <div class="panel">
@@ -63,6 +72,7 @@
        </section>
     </main>
 
+    <!-- Load JavaScript at the end so all elements exist prior to dashboard.js attempting to access them. -->
     <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
 </body>
 </html>

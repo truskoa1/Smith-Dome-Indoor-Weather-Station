@@ -51,5 +51,6 @@ Plan for 7.6.2026 (Pi Session):
 -This probably will not occur during the pi session, but we may want to implement a menu into the BOH design. It would probably have a camera toggle, an alarm log,
 and maybbbeee an about page. 
 -After this session we have two more, so this will probably primarily be final touches and mounting. Yay, software almost done!
+-Add "last updated" for outside Pi readings (FOH display)
 
-
+NOTE SO I DON'T FORGET: change placeholder values in sensor_reader to be "--" prior to deploying Pi. 
