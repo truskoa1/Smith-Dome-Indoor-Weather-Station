@@ -185,3 +185,8 @@ body.alert-danger .panel {
     font-size: 2.2rem;
     margin: 12px 0 0 0;
 }
+
+.last-updated {
+    font-size: 1rem;
+    margin: 10px 0 0;
+}

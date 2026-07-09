@@ -42,6 +42,9 @@ async function updateWeather() {
         
         document.getElementById("inside-pressure").textContent =
             data.inside.pressure_hpa;
+
+        document.getElementById("inside-last-updated").textContent =
+            data.inside.last_updated;
         
         document.getElementById("outside-temperature-f").textContent = 
             data.outside.temperature_f;
@@ -54,6 +57,9 @@ async function updateWeather() {
 
         document.getElementById("outside-pressure").textContent =
             data.outside.pressure_hpa;
+        
+        document.getElementById("outside-last-updated").textContent =
+            data.outside.last_updated;
             
     } catch (error) {
         console.error("Could not update weather data:", error);
