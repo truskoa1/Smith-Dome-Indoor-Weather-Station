@@ -74,7 +74,7 @@ def on_message(client, userdata, msg):
             # TODO: can remove this debug print statement
             print(f"{msg.topic}: {msg.payload.decode()}")
             # save data to latest data global
-            latest_data[{msg.topic}] = msg.payload.decode()
+            latest_data[msg.topic] = msg.payload.decode()
 
 mqtt_client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 mqtt_client.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
@@ -86,7 +86,7 @@ mqtt_client.connect(MQTT_HOST, MQTT_PORT, 60)
 # NOTE: use loop_forever() if not running in flask server!
 # loop_start() will NOT block flash thread
 # this may need testing though
-mqtt_client.loop_start()
+mqtt_client.loop_forever()
 
 """
 Example Flask route to send latest all sky image data as jpeg image
