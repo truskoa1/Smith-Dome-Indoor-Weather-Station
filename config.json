@@ -1,0 +1,8 @@
+{
+  "mqtt": {
+    "host": "change_to_allsky_ip",
+    "port": 1883,
+    "username": "indi-allsky",
+    "password": "dont_push_real_password_to_github_repo"
+  }
+}
