@@ -16,7 +16,6 @@ Our alert states are defined as follows:
         will turn the screen red until it is resolved. 
 
 Current limitations: 
-    - Outside Pi communication not currently implemented.
     - Alert thresholds are placeholder values.
 """
 
@@ -27,7 +26,6 @@ from astropy.time import Time, TimeDelta
 HIGH_HUMIDITY = 85.0
 DANGER_HUMIDITY = 90.0
 
-# Disabled for now until we know what temperature threshold matters.
 TEMP_THRESHOLD_F_CAUTION = 104
 TEMP_THRESHOLD_F_DANGER = 122
 

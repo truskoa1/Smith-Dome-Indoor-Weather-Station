@@ -18,6 +18,7 @@
     <button id="menu-button" class="menu-button">☰</button>
     <div id="side-menu" class="side-menu hidden">
     <button id="camera-button" class="menu-option">Loading...</button>
+    <button id="allsky-button" class="menu-option">All-Sky View</button>
 </div>
 
 <!-- Alert banner. This is hidden by default. dashboard.js toggles the hidden class based on current alert
@@ -32,7 +33,8 @@
     </button>
 </div>
     <!-- Main weather display. Spans are utilized so values can be updated without needing to reload the page. -->
-    <main class="dashboard">
+<main class="dashboard">
+    <section id="weather-view" class="view weather-view">
        <section class="split-display">
         <div class="panel">
             <h2>Inside</h2>
@@ -44,7 +46,7 @@
                     {{ data.inside.temperature_c }}</span>°C
             </p>
             <p class="humidity">
-               Humidity: <span id="outside-humidity">{{ data.outside.humidity }}</span>%
+               Humidity: <span id="inside-humidity">{{ data.inside.humidity }}</span>%
             </p>
             <p class="pressure">
                 Pressure: <span id="inside-pressure">{{ data.inside.pressure_hpa }}</span> hPa
@@ -65,7 +67,7 @@
                 </span>°C
             </p>
             <p class="humidity">
-                Humidity: <span id="outside_humidity">--</span>%
+                Humidity: <span id="outside-humidity">{{ data.outside.humidity }}</span>%
             </p>
             <p class="pressure">
                 Pressure:<span id="outside-pressure">{{ data.outside.pressure_hpa }}</span> hPa
@@ -74,9 +76,33 @@
                 Last Updated: <span id="outside-last-updated">{{ data.outside.last_updated }}</span>
             </p>
         </div>
+        </section>
+    </section>
 
-       </section>
-    </main>
+    <section id="allsky-view" class="view allsky-view hidden">
+        <img
+            id="allsky-image"
+            class="allsky-image"
+            src="/api/allsky/latest.jpg"
+            alt="Latest all-sky camera image."
+        >
+
+        <p class="last-updated">
+            Last image received: 
+            <span id="allsky-last-image-time">No image received.</span>
+        </p>
+        
+        <p id="allsky-status-text">
+            Waiting for all-sky image...
+        </p>
+
+        <button id="return-weather-button" class="menu-option">
+            Return to Weather
+        </button>
+
+
+    </section>
+</main>
 
     <!-- Load JavaScript at the end so all elements exist prior to dashboard.js attempting to access them. -->
     <script src="{{ url_for('static', filename='dashboard.js') }}"></script>

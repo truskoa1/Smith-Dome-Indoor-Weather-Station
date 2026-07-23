@@ -16,7 +16,7 @@ async function updateCurrentWeather() {
             data.inside.humidity;
         document.getElementById("inside-pressure").textContent =
             data.inside.pressure_hpa;
-            
+    
         document.getElementById("outside-temperature-f").textContent =
             data.outside.temperature_f;
         document.getElementById("outside-temperature-c").textContent =
@@ -104,7 +104,7 @@ async function updateWeatherLog() {
 
             addCell(tr, row.outside_humidity + "%");
 
-            addCell(tr, row.outsid_pressure_hpa + " hPa");
+            addCell(tr, row.outside_pressure_hpa + " hPa");
 
             tableBody.appendChild(tr);
         }

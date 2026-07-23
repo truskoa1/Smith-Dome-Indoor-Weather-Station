@@ -75,6 +75,8 @@ setInterval(updateWeather, 5000);
 const menuButton = document.getElementById("menu-button");
 const sideMenu = document.getElementById("side-menu");
 const cameraButton = document.getElementById("camera-button");
+const allskyButton = document.getElementById("allsky-button");
+
 
 menuButton.addEventListener("click", () => {
     /*
@@ -240,9 +242,94 @@ snoozeAlertButton.addEventListener("click", async () => {
         await response.json();
         await updateAlerts();
     } catch (error) {
-        console.error("Could not snooze alert:", error);
+        console.error("Could not snooze alert: ", error);
     }
 });
 
 updateAlerts();
 setInterval(updateAlerts, 5000);
+
+const weatherView = document.getElementById("weather-view");
+const allskyView = document.getElementById("allsky-view");
+const allskyButton = document.getElementById("allsky-button");
+const returnWeatherButton = document.getElementById("return-weather-button");
+const allskyImage = document.getElementById("allsky-image");
+const allskyStatusText = document.getElementById("allsky-status-text");
+const allskyLastImageTime = document.getElementById("allsky-last-image-time");
+
+let allskyRefreshInterval = null;
+
+function refreshImage() {
+    const time = Date.now();
+    allskyImage.src = "/api/allsky/latest.jpg?t=" + time;
+}
+
+async function updateAllSkyStatus() {
+    try {
+        const response = await fetch("/api/allsky/status");
+
+        const data = await response.json();
+
+        allskyLastImageTime.textContent = data.last_image_received;
+
+        if (data.image_available) {
+            allskyStatusText.textContent = "";
+        }
+        else {
+            allskyStatusText.textContent = "Waiting for all-sky image...";
+        }
+    } catch (error) {
+        allskyLastImageTime.textContent = "Unknown";
+        console.error("Could not update status: ", error);
+        allskyStatusText.textContent = "Could not contact status route.";
+    }
+}
+
+function startAllskyRefresh() {
+    if (allskyRefreshInterval !== null) {
+        return;
+    }
+    else {
+        allskyRefreshInterval = setInterval(function() {
+            refreshImage();
+            updateAllSkyStatus();
+        }, 10000);
+    }
+}
+
+function stopAllskyRefresh() {
+    if (allskyRefreshInterval !== null) {
+        clearInterval(allskyRefreshInterval);
+        allskyRefreshInterval = null;
+    }
+}
+
+function showAllskyView() {
+    weatherView.classList.add("hidden");
+    allskyView.classList.remove("hidden");
+    sideMenu.classList.add("hidden");
+    menuButton.classList.add("hidden");
+
+    refreshImage();
+    updateAllSkyStatus();
+
+    startAllskyRefresh();
+}
+
+function showWeatherView() {
+    allskyView.classList.add("hidden");
+    weatherView.classList.remove("hidden");
+    menuButton.classList.remove("hidden");  
+
+    stopAllskyRefresh();
+}
+
+allskyButton.addEventListener("click", showAllskyView);
+returnWeatherButton.addEventListener("click", showWeatherView);
+
+allskyImage.addEventListener("load", function() {
+    allskyStatusText.textContent = "";
+} );
+allskyImage.addEventListener("error", function() {
+    allskyStatusText.textContent = "All-sky image unavailable.";
+});

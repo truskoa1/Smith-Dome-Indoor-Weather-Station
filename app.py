@@ -16,11 +16,12 @@ app.py is a coordinator script, not necessarily a logic file.
 """
 
 
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, Response
 
 from sensor_reader import get_weather_data
 from camera_control import toggle_stream, camera_on
 from weather_warnings import evaluate_warnings, snooze_warning
+from mqtt_client import get_allsky_status, get_latest_image
 
 app = Flask(__name__)
 
@@ -88,6 +89,21 @@ def snooze_alert():
     """
     result = snooze_warning(minutes=15)
     return jsonify(result)
+
+@app.route("/api/allsky/latest.jpg")
+def latest_view():
+    view = get_latest_image()
+    if view is None:
+        return jsonify({"error": "Image not available"}), 404
+    
+    return Response(view, mimetype="image/jpeg")
+
+@app.route("/api/allsky/status")
+def allsky_status():
+    status = get_allsky_status()
+
+    return jsonify(status)
+
 
 if __name__ == "__main__":
     """

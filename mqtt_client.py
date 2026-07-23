@@ -2,6 +2,8 @@ import paho.mqtt.client as mqtt
 import json
 import sys
 import threading
+from astropy.time import Time
+from zoneinfo import ZoneInfo   
 # DEBUG ONLY:
 from io import BytesIO
 from PIL import Image
@@ -25,11 +27,18 @@ MQTT_USERNAME = config["mqtt"]["username"]
 MQTT_PASSWORD = config["mqtt"]["password"]
 
 latest_image_bytes = None
+latest_image_received = None
 latest_data = {}
 # thread lock for data dictionary. prevents weird race conditions
 # with multiple threads trying to access data
 image_lock = threading.Lock()
 data_lock = threading.Lock()
+
+TEMP_C_TOPIC = "indi-allsky/sensor_user_20"
+HUMIDITY_TOPIC = "indi-allsky/sensor_user_21"
+PRESSURE_TOPIC = "indi-allsky/sensor_user_22"
+
+EASTERN_TIMEZONE = ZoneInfo("America/New_York")
 
 def on_connect(client, userdata, flags, rc, properties=None):
     print("Connected with result code", rc)
@@ -58,6 +67,8 @@ def on_message(client, userdata, msg):
     # NOTE: image data is in raw jpeg format
     global latest_image_bytes
     global latest_data
+    global latest_image_received
+
     if msg.topic == "indi-allsky/latest":
         # TODO: Remove these 3 lines as this opens the image in a window. Don't decode the
         # raw image data, just save it and send it straight to web clients
@@ -69,12 +80,67 @@ def on_message(client, userdata, msg):
         # Use this if you use the flask route below to send latest all sky image data
         with image_lock: 
             latest_image_bytes = msg.payload
+            latest_image_received = view_timestamp()
     else:
         with data_lock:
             # TODO: can remove this debug print statement
             print(f"{msg.topic}: {msg.payload.decode()}")
             # save data to latest data global
             latest_data[msg.topic] = msg.payload.decode()
+
+def get_latest_image():
+    with image_lock:
+        view = latest_image_bytes
+    
+    return view
+
+def get_allsky_status():
+    with image_lock:
+        if latest_image_bytes is None or latest_image_received is None:
+            image_available = False
+            timestamp = "No image received."
+        else:
+            image_available = True
+            timestamp = latest_image_received
+    return {
+        "image_available": image_available,
+        "last_image_received": timestamp
+    }
+
+def outside_weather_data():
+    with data_lock:
+        temp_c = latest_data.get(TEMP_C_TOPIC)
+        humidity = latest_data.get(HUMIDITY_TOPIC)
+        pressure = latest_data.get(PRESSURE_TOPIC)
+    
+    return {
+        "temperature_c": temp_c,
+        "humidity": humidity,
+        "pressure_hpa": pressure
+    }
+
+
+def view_timestamp(time=None):
+    """
+    Returns a timestamp. ISO format, EST/EDT depending on date.
+
+    Args:
+        time (astropy.time.Time or None):
+            Astropy Time object. If None, current time is used.
+
+    Returns:
+        str : 
+            Timestamp formatted for EST/EDT (24-hour time)
+                ex: "2026-07-09 12:20:18 EDT"
+    """
+
+    if time is None:
+        time = Time.now()
+
+    eastern_datetime = time.to_datetime(timezone=EASTERN_TIMEZONE)
+
+    return eastern_datetime.strftime("%Y-%m-%d %H:%M:%S %Z")
+
 
 mqtt_client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 mqtt_client.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
@@ -86,7 +152,7 @@ mqtt_client.connect(MQTT_HOST, MQTT_PORT, 60)
 # NOTE: use loop_forever() if not running in flask server!
 # loop_start() will NOT block flash thread
 # this may need testing though
-mqtt_client.loop_forever()
+mqtt_client.loop_start()
 
 """
 Example Flask route to send latest all sky image data as jpeg image
