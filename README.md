@@ -43,16 +43,46 @@ The code imports the function log_weather_data from weather_logger.py and calls 
 
 Stream.py:
 This code runs runs a Flask app on port 5000 and serves a live MJPEG stream from the Raspberry Pi camera at /video_feed. It is intended to run as a systemd service named camera-stream.service.
+  The code starts by importing io, Picamera (the camera attached to the Pi), Flask, Response, jsonify, and time.
+  The function initialize_cam initializes and returns the correct camera that will be used.
+  The function generate_frames captures frames from the camera by taking JPEGs of what it sees and saves them into memory. When a client is connected to /video_feed, this will loop continuously.
+  The function index returns a basic JSON status for the camera stream service (camera-stream status for service, running status for status, and /video_feed status for video_feed).
+  The function health returns how healthy the stream is (running status).
+  The /video_feed is routed to the Flask app.
+  The function video_feed retuns the JEPG frames captured by the camera.
 
 Camera.py:
-This code allows the camera to update its feed to the Flask website.
+This code takes a sample picture using the camera. Its only purpose is to test and make sure the camera is functional. If so, a single JPEG image will get taken by the camera and sent to the folder path /home/surp/test_image.jpg upon running.
 
 Camera_control.py:
-This code allows the camera to be controlled through the touchscreen display.
+This code allows the camera to be controlled through the touchscreen display
+  The code starts by importing subprocess.
+  The function run_systemctl runs a systemctl command for the camera stream survice.
+  The function camera_on returns a boolean that represents whether the camera is on or not.
+  The function start_camera starts the camera using run_systemctl.
+    It will return an error message if the camera is off.
+  The function stop_camera does likewise, stopping the camera only if the camera is already on.
+  The function toggle_stream toggles the status of the stream.
 
 App.py:
 This code contols the FOH (Front of House) Flask application.
-
+  The code starts by importing get_weather_data, toggle_stream, camera_on, evaluate_warnings, and snooze_warning.
+  The function dashboard renders the main FOH touchscreen dashboard.
+  The function weather_api returns the current weather data as a JSON.
+  The function camera_status returns whether or not the camera stream is active.
+  The function toggle_camera toggles the camera stream. This is different from the toggle_stream function in camera_control.py, which toggles the streaming of the camera, not the camera itself.
+  The function alerts_api retuns the current alert state as a JSON.
+  The function snooze_alert snoozes the current caution alert.
+  The function 
+  
 Boh_app.py:
 This code controls the BOH (Back of House) Flask applicaton.
+  The code starts by importing Flask, render_template, jsonify, send_file, get_weather_data, log_file, initialize_log, read_recent_log, and camera_on.
+  The BOH app is set to Flask.
+  The function boh_dashboard renders the dashboard and receives the current weather data and recent log rows.
+  The function weather_api returns the current weather as a JSON for the BOH (the function with the same name under app.py is for FOH)
+  The function weather_log_api returns the log rows as a JSON for the BOH.
+  The function donwload_weather_log will return a file attachment containing the log file.
+  The function cmaera_status retuns whether or not the camera is running.
   
+The javascript files under static and the html files under templates are for visual formatting and parsing code so that the website can actually use it.
